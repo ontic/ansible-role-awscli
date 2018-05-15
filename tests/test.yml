@@ -18,11 +18,13 @@
     awscli_version: 'latest'
     awscli_users:
       - username: 'jack'
+        no_log: yes
         access_key_id: 'JSUEHCKFODNN1EXAMPLE'
         secret_access_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
         region: 'ap-southeast-2'
         output: 'text'
       - username: 'jill'
+        no_log: yes
         profiles:
           - name: 'default'
             access_key_id: 'PSLCUIKFODNN2EXAMPLE'
