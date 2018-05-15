@@ -1,0 +1,24 @@
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
+
+---
+
+- name: 'AWS CLI | Ubuntu | Update APT cache.'
+  become: yes
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+  when: 'ansible_os_family == "Debian"'
+
+- name: 'AWS CLI | Install Python PIP.'
+  become: yes
+  package:
+    name: 'python-pip'
+    state: 'present'
+
+- name: 'AWS CLI | Install AWS CLI via PIP.'
+  become: yes
+  pip:
+    name: 'awscli'
+    state: '{{ (awscli_version == "latest") | ternary("latest", "present") }}'
+    version: '{{ (awscli_version == "latest") | ternary(omit, awscli_version) }}'

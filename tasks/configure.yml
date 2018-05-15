@@ -1,0 +1,39 @@
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
+
+---
+
+- name: 'AWS CLI | Configure user directories.'
+  become: yes
+  become_user: '{{ item.username }}'
+  file:
+    path: '~/.aws'
+    state: 'directory'
+    owner: '{{ item.username }}'
+    group: '{{ item.group | default(item.username) }}'
+  with_items: '{{ awscli_users }}'
+  when: 'awscli_users | default(None) != None'
+
+- name: 'AWS CLI | Configure user configuration file.'
+  become: yes
+  become_user: '{{ item.username }}'
+  template:
+    src: 'config.j2'
+    dest: '~/.aws/config'
+    owner: '{{ item.username }}'
+    group: '{{ item.group | default(item.username) }}'
+    mode: '0600'
+  with_items: '{{ awscli_users }}'
+  when: 'awscli_users | default(None) != None'
+
+- name: 'AWS CLI | Configure user credentials file.'
+  become: yes
+  become_user: '{{ item.username }}'
+  template:
+    src: 'credentials.j2'
+    dest: '~/.aws/credentials'
+    owner: '{{ item.username }}'
+    group: '{{ item.group | default(item.username) }}'
+    mode: '0600'
+  with_items: '{{ awscli_users }}'
+  when: 'awscli_users | default(None) != None'
