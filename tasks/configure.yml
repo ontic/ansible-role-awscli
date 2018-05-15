@@ -6,6 +6,7 @@
 - name: 'AWS CLI | Configure user directories.'
   become: yes
   become_user: '{{ item.username }}'
+  no_log: '{{ item.no_log | default(omit) }}'
   file:
     path: '~/.aws'
     state: 'directory'
@@ -17,6 +18,7 @@
 - name: 'AWS CLI | Configure user configuration file.'
   become: yes
   become_user: '{{ item.username }}'
+  no_log: '{{ item.no_log | default(omit) }}'
   template:
     src: 'config.j2'
     dest: '~/.aws/config'
@@ -29,6 +31,7 @@
 - name: 'AWS CLI | Configure user credentials file.'
   become: yes
   become_user: '{{ item.username }}'
+  no_log: '{{ item.no_log | default(omit) }}'
   template:
     src: 'credentials.j2'
     dest: '~/.aws/credentials'
