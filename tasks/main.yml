@@ -3,13 +3,13 @@
 
 ---
 
-- include: 'package.yml'
+- import_tasks: 'package.yml'
   tags:
     - 'awscli'
     - 'awscli-package'
     - 'package'
 
-- include: 'configure.yml'
+- import_tasks: 'configure.yml'
   tags:
     - 'awscli'
     - 'awscli-configure'
